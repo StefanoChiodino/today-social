@@ -1,5 +1,6 @@
 defmodule TodaySocialWeb.Router do
   use TodaySocialWeb, :router
+  use Pow.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,8 +14,23 @@ defmodule TodaySocialWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TodaySocialWeb do
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  scope "/" do
     pipe_through :browser
+
+    pow_routes()
+  end
+
+  scope "/", TodaySocialWeb do
+    pipe_through [:browser, :protected]
+
+  # scope "/", TodaySocialWeb do
+  #   pipe_through :browser
+  # end
 
     get "/", PageController, :index
   end
