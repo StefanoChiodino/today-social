@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :today_social, TodaySocial.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "password",
   database: "today_social_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
