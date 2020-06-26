@@ -1,8 +1,13 @@
 defmodule TodaySocialWeb.PostController do
   use TodaySocialWeb, :controller
+  # use TodaySocial.CurrentUser
 
   alias TodaySocial.Journal
   alias TodaySocial.Journal.Post
+
+  # def action(%Plug.Conn{assigns: %{current_user: current_user}} = conn, _opts) do
+  #   apply(__MODULE__, action_name(conn), [conn, conn.params, current_user])
+  # end
 
   def index(conn, _params) do
     posts = Journal.list_posts()
@@ -15,7 +20,7 @@ defmodule TodaySocialWeb.PostController do
   end
 
   def create(conn, %{"post" => post_params}) do
-    case Journal.create_post(post_params) do
+    case Journal.create_post(Map.put(post_params, "user_id", Pow.Plug.current_user(conn).id)) do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post created successfully.")
