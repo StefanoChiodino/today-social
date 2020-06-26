@@ -3,7 +3,7 @@ defmodule TodaySocial.Repo.Migrations.CreatePosts do
 
   def change do
     create table(:posts) do
-      add :username, :string
+      add :user_id, :integer
       add :body, :string
 
       timestamps()

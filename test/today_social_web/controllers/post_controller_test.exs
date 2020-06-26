@@ -3,9 +3,9 @@ defmodule TodaySocialWeb.PostControllerTest do
 
   alias TodaySocial.Journal
 
-  @create_attrs %{body: "some body", username: "some username"}
-  @update_attrs %{body: "some updated body", username: "some updated username"}
-  @invalid_attrs %{body: nil, username: nil}
+  @create_attrs %{body: "some body", user_id: 42}
+  @update_attrs %{body: "some updated body", user_id: 43}
+  @invalid_attrs %{body: nil, user_id: nil}
 
   def fixture(:post) do
     {:ok, post} = Journal.create_post(@create_attrs)

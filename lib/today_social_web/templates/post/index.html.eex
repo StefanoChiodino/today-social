@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Username</th>
+      <th>User</th>
       <th>Body</th>
 
       <th></th>
@@ -12,7 +12,7 @@
   <tbody>
 <%= for post <- @posts do %>
     <tr>
-      <td><%= post.username %></td>
+      <td><%= post.user_id %></td>
       <td><%= post.body %></td>
 
       <td>

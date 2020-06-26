@@ -4,7 +4,7 @@ defmodule TodaySocial.Journal.Post do
 
   schema "posts" do
     field :body, :string
-    field :username, :string
+    field :user_id, :integer
 
     timestamps()
   end
@@ -12,7 +12,8 @@ defmodule TodaySocial.Journal.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:username, :body])
-    |> validate_required([:username, :body])
+    |> cast(attrs, [:user_id, :body])
+    |> validate_required([:user_id, :body])
+    |> validate_length(:body, min: 3)
   end
 end
