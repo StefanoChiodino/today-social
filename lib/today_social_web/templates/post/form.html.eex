@@ -6,11 +6,13 @@
   <% end %>
 
   <%= label f, :yesterday %>
-  <%= textarea f, :yesterday %>
+  <%= hidden_input f, :yesterday, id: "yesterday-input" %>
+  <trix-editor input="yesterday-input"></trix-editor>
   <%= error_tag f, :yesterday %>
 
   <%= label f, :today %>
-  <%= textarea f, :today %>
+  <%= hidden_input f, :today, id: "today-input" %>
+  <trix-editor input="today-input"></trix-editor>
   <%= error_tag f, :today %>
 
   <div>
