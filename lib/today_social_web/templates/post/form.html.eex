@@ -5,11 +5,13 @@
     </div>
   <% end %>
 
-  <%= error_tag f, :user_id %>
+  <%= label f, :yesterday %>
+  <%= textarea f, :yesterday %>
+  <%= error_tag f, :yesterday %>
 
-  <%= label f, :body %>
-  <%= text_input f, :body %>
-  <%= error_tag f, :body %>
+  <%= label f, :today %>
+  <%= textarea f, :today %>
+  <%= error_tag f, :today %>
 
   <div>
     <%= submit "Save" %>

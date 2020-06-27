@@ -4,7 +4,8 @@
   <thead>
     <tr>
       <th>User</th>
-      <th>Body</th>
+      <th>Yesterday</th>
+      <th>Today</th>
 
       <th></th>
     </tr>
@@ -13,7 +14,8 @@
 <%= for post <- @posts do %>
     <tr>
       <td><%= post.user_id %></td>
-      <td><%= post.body %></td>
+      <td><%= post.yesterday %></td>
+      <td><%= post.today %></td>
 
       <td>
         <span><%= link "Show", to: Routes.post_path(@conn, :show, post) %></span>

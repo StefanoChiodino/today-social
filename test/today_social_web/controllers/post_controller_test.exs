@@ -3,9 +3,9 @@ defmodule TodaySocialWeb.PostControllerTest do
 
   alias TodaySocial.Journal
 
-  @create_attrs %{body: "some body", user_id: 42}
-  @update_attrs %{body: "some updated body", user_id: 43}
-  @invalid_attrs %{body: nil, user_id: nil}
+  @create_attrs %{today: "some today", user_id: 42, yesterday: "some yesterday"}
+  @update_attrs %{today: "some updated today", user_id: 43, yesterday: "some updated yesterday"}
+  @invalid_attrs %{today: nil, user_id: nil, yesterday: nil}
 
   def fixture(:post) do
     {:ok, post} = Journal.create_post(@create_attrs)
@@ -60,7 +60,7 @@ defmodule TodaySocialWeb.PostControllerTest do
       assert redirected_to(conn) == Routes.post_path(conn, :show, post)
 
       conn = get(conn, Routes.post_path(conn, :show, post))
-      assert html_response(conn, 200) =~ "some updated body"
+      assert html_response(conn, 200) =~ "some updated today"
     end
 
     test "renders errors when data is invalid", %{conn: conn, post: post} do

@@ -8,8 +8,13 @@
   </li>
 
   <li>
-    <strong>Body:</strong>
-    <%= @post.body %>
+    <strong>Yesterday:</strong>
+    <%= @post.yesterday %>
+  </li>
+
+  <li>
+    <strong>Today:</strong>
+    <%= @post.today %>
   </li>
 
 </ul>
