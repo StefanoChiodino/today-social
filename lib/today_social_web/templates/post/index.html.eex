@@ -14,8 +14,8 @@
 <%= for post <- @posts do %>
     <tr>
       <td><%= post.user_id %></td>
-      <td><%= post.yesterday %></td>
-      <td><%= post.today %></td>
+      <td><%= HtmlSanitizeEx.markdown_html post.yesterday %></td>
+      <td><%= HtmlSanitizeEx.markdown_html post.today %></td>
 
       <td>
         <span><%= link "Show", to: Routes.post_path(@conn, :show, post) %></span>

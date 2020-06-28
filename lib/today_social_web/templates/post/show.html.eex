@@ -9,12 +9,12 @@
 
   <li>
     <strong>Yesterday:</strong>
-    <%= @post.yesterday %>
+    <%= HtmlSanitizeEx.markdown_html @post.yesterday %>
   </li>
 
   <li>
     <strong>Today:</strong>
-    <%= @post.today %>
+    <%= HtmlSanitizeEx.markdown_html @post.today %>
   </li>
 
 </ul>
