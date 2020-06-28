@@ -16,8 +16,6 @@ defmodule TodaySocialWeb.PostController do
   end
 
   def create(conn, %{"post" => post_params}) do
-    # inspect = Map.put(post_params, "user_id", Pow.Plug.current_user(conn).id)
-    # Logger.debug "INSPECT THIS #{inspect(inspect)}"
     case Journal.create_post(Map.put(post_params, "user_id", Pow.Plug.current_user(conn).id)) do
       {:ok, post} ->
         conn

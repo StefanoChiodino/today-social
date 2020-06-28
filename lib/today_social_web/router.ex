@@ -35,6 +35,7 @@ defmodule TodaySocialWeb.Router do
     get "/", PageController, :index
 
     resources "/posts", PostController
+    resources "/friend_request", FriendRequestController
   end
 
   # Other scopes may use custom stacks.

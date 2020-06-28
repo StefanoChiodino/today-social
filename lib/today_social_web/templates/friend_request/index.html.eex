@@ -1,0 +1,30 @@
+<h1>Listing Friend request</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>From user</th>
+      <th>To user</th>
+      <th>Accepted</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for friend_request <- @friend_request do %>
+    <tr>
+      <td><%= friend_request.from_user_id %></td>
+      <td><%= friend_request.to_user_id %></td>
+      <td><%= friend_request.accepted %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.friend_request_path(@conn, :show, friend_request) %></span>
+        <span><%= link "Edit", to: Routes.friend_request_path(@conn, :edit, friend_request) %></span>
+        <span><%= link "Delete", to: Routes.friend_request_path(@conn, :delete, friend_request), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Friend request", to: Routes.friend_request_path(@conn, :new) %></span>

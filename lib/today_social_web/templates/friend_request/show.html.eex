@@ -1,0 +1,23 @@
+<h1>Show Friend request</h1>
+
+<ul>
+
+  <li>
+    <strong>From user:</strong>
+    <%= @friend_request.from_user_id %>
+  </li>
+
+  <li>
+    <strong>To user:</strong>
+    <%= @friend_request.to_user_id %>
+  </li>
+
+  <li>
+    <strong>Accepted:</strong>
+    <%= @friend_request.accepted %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.friend_request_path(@conn, :edit, @friend_request) %></span>
+<span><%= link "Back", to: Routes.friend_request_path(@conn, :index) %></span>
