@@ -1,6 +1,7 @@
 defmodule TodaySocialWeb.Router do
   use TodaySocialWeb, :router
   use Pow.Phoenix.Router
+  alias TodaySocialWeb.FriendshipHelpers
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -8,6 +9,7 @@ defmodule TodaySocialWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug FriendshipHelpers
   end
 
   pipeline :api do
@@ -22,7 +24,7 @@ defmodule TodaySocialWeb.Router do
   scope "/" do
     pipe_through :browser
 
-    pow_routes()
+  pow_routes()
   end
 
   scope "/", TodaySocialWeb do

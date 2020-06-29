@@ -7,7 +7,6 @@ defmodule TodaySocial.Journal.Post do
     field :yesterday, :string
     field :today, :string
 
-
     timestamps()
   end
 

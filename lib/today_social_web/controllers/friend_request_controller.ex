@@ -19,8 +19,6 @@ defmodule TodaySocialWeb.FriendRequestController do
   defp warn(conn), do: put_flash(conn, :info, "The user will receive an invite if they exist.")
 
   def create(conn, %{"friend_request" => friend_request_params}) do
-
-
     case Repo.get_by(User, email: friend_request_params["email_address"]) do
       nil -> conn |> warn
       user ->
