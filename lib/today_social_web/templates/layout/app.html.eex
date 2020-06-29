@@ -24,8 +24,11 @@
               <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
             <% end %>
         </nav>
-        <a href="/" class="phx-logo">
+        <!-- <a href="/" class="phx-logo">
           <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        </a>-->
+        <a href="/">
+          Today Social
         </a>
       </section>
     </header>
