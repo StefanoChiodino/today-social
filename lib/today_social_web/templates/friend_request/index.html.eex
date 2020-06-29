@@ -5,7 +5,6 @@
     <tr>
       <th>From user</th>
       <th>To user</th>
-      <th>Accepted</th>
 
       <th></th>
     </tr>
@@ -15,12 +14,10 @@
     <tr>
       <td><%= friend_request.from_user_id %></td>
       <td><%= friend_request.to_user_id %></td>
-      <td><%= friend_request.accepted %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.friend_request_path(@conn, :show, friend_request) %></span>
-        <span><%= link "Edit", to: Routes.friend_request_path(@conn, :edit, friend_request) %></span>
-        <span><%= link "Delete", to: Routes.friend_request_path(@conn, :delete, friend_request), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Accept", to: Routes.friend_request_path(@conn, :update, friend_request), method: :put %></span>
+        <span><%= link "Reject", to: Routes.friend_request_path(@conn, :delete, friend_request), method: :delete%></span>
       </td>
     </tr>
 <% end %>

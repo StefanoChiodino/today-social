@@ -6,8 +6,10 @@ defmodule TodaySocialWeb.FriendRequestController do
   alias TodaySocial.Friendship
   alias TodaySocial.Friendship.FriendRequest
 
+  import Ecto.Query
+
   def index(conn, _params) do
-    friend_requests = Repo.all(FriendRequest, [to_user_id: Pow.Plug.current_user(conn).id, accepted: false, rejected: false])
+    friend_requests = Repo.all((from fr in FriendRequest, where: fr.to_user_id == ^Pow.Plug.current_user(conn).id and fr.accepted == false and fr.rejected == false))
     render(conn, "index.html", friend_request: friend_requests)
   end
 
@@ -29,41 +31,55 @@ defmodule TodaySocialWeb.FriendRequestController do
         Friendship.create_friend_request(friend_request)
         conn
         |> warn
-        |> redirect(to: Routes.friend_request_path(conn, :new))
+        |> redirect(to: Routes.friend_request_path(conn, :index))
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    friend_request = Friendship.get_friend_request!(id)
-    render(conn, "show.html", friend_request: friend_request)
-  end
+  def update(conn, %{"id" => id}) do
+      Repo.get_by(FriendRequest, [id: id, to_user_id: Pow.Plug.current_user(conn).id])
+      |> Friendship.update_friend_request(%{accepted: true})
 
-  def edit(conn, %{"id" => id}) do
-    friend_request = Friendship.get_friend_request!(id)
-    changeset = Friendship.change_friend_request(friend_request)
-    render(conn, "edit.html", friend_request: friend_request, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "friend_request" => friend_request_params}) do
-    friend_request = Friendship.get_friend_request!(id)
-
-    case Friendship.update_friend_request(friend_request, friend_request_params) do
-      {:ok, friend_request} ->
-        conn
-        |> put_flash(:info, "Friend request updated successfully.")
-        |> redirect(to: Routes.friend_request_path(conn, :show, friend_request))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", friend_request: friend_request, changeset: changeset)
-    end
+      redirect(conn, to: Routes.friend_request_path(conn, :index))
   end
 
   def delete(conn, %{"id" => id}) do
-    friend_request = Friendship.get_friend_request!(id)
-    {:ok, _friend_request} = Friendship.delete_friend_request(friend_request)
+    Repo.get_by(FriendRequest, [id: id, to_user_id: Pow.Plug.current_user(conn).id])
+    |> Friendship.update_friend_request(%{rejected: true})
 
-    conn
-    |> put_flash(:info, "Friend request deleted successfully.")
-    |> redirect(to: Routes.friend_request_path(conn, :index))
+    redirect(conn, to: Routes.friend_request_path(conn, :index))
   end
+
+  # def show(conn, %{"id" => id}) do
+  #   friend_request = Friendship.get_friend_request!(id)
+  #   render(conn, "show.html", friend_request: friend_request)
+  # end
+
+  # def edit(conn, %{"id" => id}) do
+  #   friend_request = Friendship.get_friend_request!(id)
+  #   changeset = Friendship.change_friend_request(friend_request)
+  #   render(conn, "edit.html", friend_request: friend_request, changeset: changeset)
+  # end
+
+  # def update(conn, %{"id" => id, "friend_request" => friend_request_params}) do
+  #   friend_request = Friendship.get_friend_request!(id)
+
+  #   case Friendship.update_friend_request(friend_request, friend_request_params) do
+  #     {:ok, friend_request} ->
+  #       conn
+  #       |> put_flash(:info, "Friend request updated successfully.")
+  #       |> redirect(to: Routes.friend_request_path(conn, :show, friend_request))
+
+  #     {:error, %Ecto.Changeset{} = changeset} ->
+  #       render(conn, "edit.html", friend_request: friend_request, changeset: changeset)
+  #   end
+  # end
+
+  # def delete(conn, %{"id" => id}) do
+  #   friend_request = Friendship.get_friend_request!(id)
+  #   {:ok, _friend_request} = Friendship.delete_friend_request(friend_request)
+
+  #   conn
+  #   |> put_flash(:info, "Friend request deleted successfully.")
+  #   |> redirect(to: Routes.friend_request_path(conn, :index))
+  # end
 end
