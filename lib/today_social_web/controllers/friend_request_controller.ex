@@ -16,17 +16,22 @@ defmodule TodaySocialWeb.FriendRequestController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  defp warn(conn), do: put_flash(conn, :info, "The user will receive an invite if they exist.")
+
   def create(conn, %{"friend_request" => friend_request_params}) do
-    put_flash(conn, :info, "The user will receive an invite if they exist.")
+
+
     case Repo.get_by(User, email: friend_request_params["email_address"]) do
-      nil -> nil
+      nil -> conn |> warn
       user ->
         friend_request = %{
           from_user_id: Pow.Plug.current_user(conn).id,
           to_user_id: user.id,
         }
         Friendship.create_friend_request(friend_request)
-        redirect(conn, to: Routes.friend_request_path(conn, :new))
+        conn
+        |> warn
+        |> redirect(to: Routes.friend_request_path(conn, :new))
     end
   end
 
