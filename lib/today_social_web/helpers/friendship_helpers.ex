@@ -11,7 +11,9 @@ defmodule TodaySocialWeb.FriendshipHelpers do
       nil -> conn
       user -> case Repo.aggregate(FriendRequest, :count, [to_user_id: user.id, accepted: false, rejected: false]) do
           0 -> conn
-          friend_request_count -> conn |> put_flash(:info, "You have #{friend_request_count} friend request(s)!")
+          friend_request_count -> conn
+          |> put_flash(:info, "You have #{friend_request_count} friend request(s)!")
+          |> put_flash(:friend_request_count, friend_request_count)
         end
     end
   end
