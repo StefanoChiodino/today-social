@@ -14,7 +14,7 @@ defmodule TodaySocial.Friendship.FriendRequest do
   @doc false
   def changeset(friend_request, attrs) do
     friend_request
-    |> cast(attrs, [:from_user_id, :to_user_id, :accepted])
+    |> cast(attrs, [:from_user_id, :to_user_id, :accepted, :rejected])
     |> validate_required([:from_user_id, :to_user_id])
     |> unique_constraint([:from_user_id, :to_user_id])
   end

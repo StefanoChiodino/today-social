@@ -7,8 +7,8 @@ defmodule TodaySocialWeb.FriendRequestController do
   alias TodaySocial.Friendship.FriendRequest
 
   def index(conn, _params) do
-    friend_request = Friendship.list_friend_request()
-    render(conn, "index.html", friend_request: friend_request)
+    friend_requests = Repo.all(FriendRequest, [to_user_id: Pow.Plug.current_user(conn).id, accepted: false, rejected: false])
+    render(conn, "index.html", friend_request: friend_requests)
   end
 
   def new(conn, _params) do
