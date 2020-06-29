@@ -4,6 +4,7 @@ defmodule TodaySocial.Friendship.FriendRequest do
 
   schema "friend_request" do
     field :accepted, :boolean, default: false
+    field :rejected, :boolean, default: false
     field :from_user_id, :integer
     field :to_user_id, :integer
 

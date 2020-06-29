@@ -18,7 +18,7 @@
               <% end %>
               <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
               <span><%= link "Posts", to: Routes.post_path(@conn, :index) %></span>
-              <span><%= link "Friend request", to: Routes.friend_request_path(@conn, :index) %></span>
+              <span><%= link "Friend requests", to: Routes.friend_request_path(@conn, :index) %></span>
             <% else %>
               <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
               <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>

@@ -9,11 +9,10 @@ defmodule TodaySocialWeb.FriendshipHelpers do
   def call(conn, _default) do
     case Pow.Plug.current_user(conn) do
       nil -> conn
-      user ->
-      case Repo.get_by(FriendRequest, [to_user_id: user.id, accepted: false]) do
-        nil -> conn
-        _friend_requests -> conn |> put_flash(:info, "You have friend requests!")
-      end
+      user -> case Repo.aggregate(FriendRequest, :count, [to_user_id: user.id, accepted: false, rejected: false]) do
+          0 -> conn
+          friend_request_count -> conn |> put_flash(:info, "You have #{friend_request_count} friend request(s)!")
+        end
     end
   end
 end
