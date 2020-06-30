@@ -2,11 +2,19 @@ defmodule TodaySocialWeb.PostController do
   use TodaySocialWeb, :controller
   require Logger
 
+  alias TodaySocial.Repo
   alias TodaySocial.Journal
   alias TodaySocial.Journal.Post
+  alias TodaySocial.Friendship.FriendRequest
+
+  import Ecto.Query
 
   def index(conn, _params) do
-    posts = Journal.list_posts()
+    user_id = Pow.Plug.current_user(conn).id
+    accepted_friend_requests = Repo.all((from fr in FriendRequest, where: (fr.to_user_id == ^user_id or fr.from_user_id == ^user_id) and fr.accepted == true))
+    # Logger.debug("#{accepted_friend_requests}")
+    friend_user_ids = Enum.map(accepted_friend_requests, &(if &1.from_user_id == user_id, do: &1.to_user_id, else: &1.from_user_id))
+    posts = Repo.all((from p in Post, where: p.user_id == ^user_id or p.user_id in ^friend_user_ids))
     render(conn, "index.html", posts: posts)
   end
 
