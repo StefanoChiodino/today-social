@@ -28,7 +28,8 @@ config :phoenix, :json_library, Jason
 
 config :today_social, :pow,
   user: TodaySocial.Users.User,
-  repo: TodaySocial.Repo
+  repo: TodaySocial.Repo,
+  web_module: TodaySocialWeb
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

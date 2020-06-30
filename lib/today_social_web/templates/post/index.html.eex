@@ -11,9 +11,9 @@
     </tr>
   </thead>
   <tbody>
-<%= for post <- @posts do %>
+<%= for {username, post} <- @username_and_posts do %>
     <tr>
-      <td><%= post.user_id %></td>
+      <td><%= username %></td>
       <td><%= HtmlSanitizeEx.markdown_html post.yesterday %></td>
       <td><%= HtmlSanitizeEx.markdown_html post.today %></td>
 
