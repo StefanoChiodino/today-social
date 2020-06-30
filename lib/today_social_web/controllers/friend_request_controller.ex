@@ -23,7 +23,9 @@ defmodule TodaySocialWeb.FriendRequestController do
   def create(conn, %{"friend_request" => friend_request_params}) do
     # TODO: shouldn't be able to request itself.
     # TODO: should get a warning if requesting for a user had accepted already.
-    case Repo.get_by(User, email: friend_request_params["email_address"]) do
+    # TODO: disallow @ symbol in username to avoid confusion.
+    # TODO: check if request already exists in the opposite direction, accept it and notify the user.
+    case Repo.one((from u in User, where: u.email == ^friend_request_params["email_address_or_username"] or u.username == ^friend_request_params["email_address_or_username"])) do
       nil -> conn |> warn
       user ->
         friend_request = %{

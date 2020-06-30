@@ -5,9 +5,9 @@
     </div>
   <% end %>
 
-  <label for="email_address">Your friend email address</label>
-  <%= text_input f, :email_address %>
-  <%= error_tag f, :email_address %>
+  <label for="email_address_or_username">Your friend email address or username</label>
+  <%= text_input f, :email_address_or_username %>
+  <%= error_tag f, :email_address_or_username %>
 
   <div>
     <%= submit "Request" %>
